@@ -8,7 +8,7 @@ import {
 export {};
 
 const initialState = {
-  favoriteContacts: [
+  contacts: [
     DATA_CONTACT[0].id,
     DATA_CONTACT[1].id,
     DATA_CONTACT[2].id,
@@ -23,15 +23,15 @@ export function favoriteContactsReduser(
   switch (action.type) {
     case ADD_FAVORITE_CONTACT:
       return {
-        favoriteContacts: [...state.favoriteContacts, action.payload.id],
+        contacts: [...state.contacts, action.payload.id],
       };
 
     case REMOVE_FAVORITE_CONTACT:
-      const filteredContacts = state.favoriteContacts.filter(
+      const filteredContacts = state.contacts.filter(
         id => id !== action.payload.id
       );
       return {
-        favoriteContacts: filteredContacts,
+        contacts: filteredContacts,
       };
 
     default:

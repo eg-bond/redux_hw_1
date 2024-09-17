@@ -1,13 +1,12 @@
 import { memo } from 'react';
-import { CommonPageProps } from './types';
 import { Col, Row } from 'react-bootstrap';
 import { ContactCard } from 'src/components/ContactCard';
 import { useAppSelector } from 'src/redux/hooks';
 
-export const FavoriteListPage = memo<CommonPageProps>(() => {
+export const FavoriteListPage = memo(() => {
   const favoriteContacts = useAppSelector(state => {
     return state.contacts.contacts.filter(({ id }) =>
-      state.favoriteContacts.favoriteContacts.includes(id)
+      state.favorite.contacts.includes(id)
     );
   });
 

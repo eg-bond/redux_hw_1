@@ -1,5 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
-import { CommonPageProps } from './types';
+import { memo, useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { ContactDto } from 'src/types/dto/ContactDto';
@@ -9,15 +8,17 @@ import { Empty } from 'src/components/Empty';
 import { ContactCard } from 'src/components/ContactCard';
 import { useAppSelector } from 'src/redux/hooks';
 
-export const GroupPage = memo<CommonPageProps>(({ groupContactsState }) => {
+export const GroupPage = memo(() => {
   const contactsState = useAppSelector(state => state.contacts.contacts);
+
+  const groupContactsState = useAppSelector(state => state.group.contacts);
 
   const { groupId } = useParams<{ groupId: string }>();
   const [contacts, setContacts] = useState<ContactDto[]>([]);
   const [groupContacts, setGroupContacts] = useState<GroupContactsDto>();
 
   useEffect(() => {
-    const findGroup = groupContactsState[0].find(({ id }) => id === groupId);
+    const findGroup = groupContactsState.find(({ id }) => id === groupId);
     setGroupContacts(findGroup);
     setContacts(() => {
       if (findGroup) {

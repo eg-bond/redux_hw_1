@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './MainApp.scss';
 import { ThemeProvider } from 'react-bootstrap';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -10,12 +9,8 @@ import {
   FavoriteListPage,
   GroupListPage,
 } from 'src/pages';
-import { GroupContactsDto } from 'src/types/dto/GroupContactsDto';
-import { DATA_GROUP_CONTACT } from 'src/__data__';
 
 export const MainApp = () => {
-  const groupContactsState = useState<GroupContactsDto[]>(DATA_GROUP_CONTACT);
-
   return (
     <ThemeProvider
       breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
@@ -23,44 +18,16 @@ export const MainApp = () => {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Layout />}>
-            <Route
-              index
-              element={
-                <ContactListPage groupContactsState={groupContactsState} />
-              }
-            />
+            <Route index element={<ContactListPage />} />
             <Route path='contact'>
-              <Route
-                index
-                element={
-                  <ContactListPage groupContactsState={groupContactsState} />
-                }
-              />
-              <Route
-                path=':contactId'
-                element={
-                  <ContactPage groupContactsState={groupContactsState} />
-                }
-              />
+              <Route index element={<ContactListPage />} />
+              <Route path=':contactId' element={<ContactPage />} />
             </Route>
             <Route path='groups'>
-              <Route
-                index
-                element={
-                  <GroupListPage groupContactsState={groupContactsState} />
-                }
-              />
-              <Route
-                path=':groupId'
-                element={<GroupPage groupContactsState={groupContactsState} />}
-              />
+              <Route index element={<GroupListPage />} />
+              <Route path=':groupId' element={<GroupPage />} />
             </Route>
-            <Route
-              path='favorit'
-              element={
-                <FavoriteListPage groupContactsState={groupContactsState} />
-              }
-            />
+            <Route path='favorit' element={<FavoriteListPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
