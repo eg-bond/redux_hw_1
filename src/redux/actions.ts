@@ -42,6 +42,13 @@ interface SetGroupsAction {
   payload: { groups: GroupDto[] };
 }
 
+export const removeContactActionCreator = (
+  id: string
+): RemoveContactAction => ({
+  type: REMOVE_CONTACT,
+  payload: { id },
+});
+
 export function fetchContactsAction(): ThunkAction<
   void,
   RootState,

@@ -1,4 +1,4 @@
-import { ProjectActions, SET_CONTACTS } from './actions';
+import { ProjectActions, REMOVE_CONTACT, SET_CONTACTS } from './actions';
 import { ContactDto } from 'src/types/dto/ContactDto';
 
 const initialState = {
@@ -12,14 +12,14 @@ export function contactsReduser(state = initialState, action: ProjectActions) {
         data: action.payload.contacts,
       };
 
-    // case REMOVE_CONTACT:
-    //   const filteredContacts = state.contacts.filter(
-    //     contact => contact.id !== action.payload.id
-    //   );
+    case REMOVE_CONTACT:
+      const filteredContacts = state.data.filter(
+        contact => contact.id !== action.payload.id
+      );
 
-    //   return {
-    //     contacts: filteredContacts,
-    //   };
+      return {
+        data: filteredContacts,
+      };
 
     default:
       break;
