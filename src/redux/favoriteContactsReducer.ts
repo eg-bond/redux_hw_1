@@ -1,19 +1,13 @@
-import { DATA_CONTACT } from 'src/__data__';
 import {
-  ADD_FAVORITE_CONTACT,
+  ADD_CONTACT_TO_FAVORITE,
   ProjectActions,
-  REMOVE_FAVORITE_CONTACT,
+  ADD_CONTACT_FROM_FAVORITE,
 } from './actions';
 
 export {};
 
 const initialState = {
-  data: [
-    DATA_CONTACT[0].id,
-    DATA_CONTACT[1].id,
-    DATA_CONTACT[2].id,
-    DATA_CONTACT[3].id,
-  ],
+  data: [] as string[],
 };
 
 export function favoriteContactsReducer(
@@ -21,12 +15,13 @@ export function favoriteContactsReducer(
   action: ProjectActions
 ) {
   switch (action.type) {
-    case ADD_FAVORITE_CONTACT:
+    case ADD_CONTACT_TO_FAVORITE:
+      if (state.data.includes(action.payload.id)) return state;
       return {
         data: [...state.data, action.payload.id],
       };
 
-    case REMOVE_FAVORITE_CONTACT:
+    case ADD_CONTACT_FROM_FAVORITE:
       const filteredContacts = state.data.filter(
         id => id !== action.payload.id
       );

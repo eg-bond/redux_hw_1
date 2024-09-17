@@ -6,8 +6,8 @@ import { GroupDto } from 'src/types/dto/GroupDto';
 export const SET_CONTACTS = 'SET_CONTACTS';
 export const REMOVE_CONTACT = 'REMOVE_CONTACT';
 
-export const ADD_FAVORITE_CONTACT = 'ADD_FAVORITE_CONTACT';
-export const REMOVE_FAVORITE_CONTACT = 'REMOVE_FAVORITE_CONTACT';
+export const ADD_CONTACT_TO_FAVORITE = 'ADD_CONTACT_TO_FAVORITE';
+export const ADD_CONTACT_FROM_FAVORITE = 'ADD_CONTACT_FROM_FAVORITE';
 
 export const SET_GROUPS = 'SET_GROUPS';
 export const REMOVE_GROUP = 'REMOVE_GROUP';
@@ -22,13 +22,13 @@ interface RemoveContactAction {
   payload: { id: string };
 }
 
-interface AddFavoriteContactAction {
-  type: typeof ADD_FAVORITE_CONTACT;
+interface AddContactToFavoriteAction {
+  type: typeof ADD_CONTACT_TO_FAVORITE;
   payload: { id: string };
 }
 
-interface RemoveFavoriteContactAction {
-  type: typeof REMOVE_FAVORITE_CONTACT;
+interface RemoveContactFromFavoriteAction {
+  type: typeof ADD_CONTACT_FROM_FAVORITE;
   payload: { id: string };
 }
 
@@ -41,6 +41,20 @@ interface RemoveGroupAction {
   type: typeof REMOVE_GROUP;
   payload: { id: string };
 }
+
+export const AddContactToFavoriteAC = (
+  id: string
+): AddContactToFavoriteAction => ({
+  type: ADD_CONTACT_TO_FAVORITE,
+  payload: { id },
+});
+
+export const RemoveContactFromFavoriteAC = (
+  id: string
+): RemoveContactFromFavoriteAction => ({
+  type: ADD_CONTACT_FROM_FAVORITE,
+  payload: { id },
+});
 
 export const removeContactActionCreator = (
   id: string
@@ -89,7 +103,7 @@ export function fetchGroupsAction(): ThunkAction<
 export type ProjectActions =
   | SetContactsAction
   | RemoveContactAction
-  | AddFavoriteContactAction
-  | RemoveFavoriteContactAction
+  | AddContactToFavoriteAction
+  | RemoveContactFromFavoriteAction
   | SetGroupsAction
   | RemoveGroupAction;

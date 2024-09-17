@@ -1,4 +1,3 @@
-import { DATA_GROUP_CONTACT } from 'src/__data__';
 import { ProjectActions, REMOVE_GROUP, SET_GROUPS } from './actions';
 import { GroupDto } from 'src/types/dto/GroupDto';
 

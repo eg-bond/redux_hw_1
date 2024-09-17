@@ -3,7 +3,11 @@ import { ContactDto } from 'src/types/dto/ContactDto';
 import { Button, Card, ListGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from 'src/redux/hooks';
-import { removeContactActionCreator } from 'src/redux/actions';
+import {
+  AddContactToFavoriteAC,
+  removeContactActionCreator,
+  RemoveContactFromFavoriteAC,
+} from 'src/redux/actions';
 
 interface ContactCardProps {
   contact: ContactDto;
@@ -31,10 +35,22 @@ export const ContactCard = memo<ContactCardProps>(
               <ListGroup.Item>{address}</ListGroup.Item>
             </ListGroup>
           </Card.Body>
+          <Card.Body>
+            <Button
+              onClick={() => dispatch(AddContactToFavoriteAC(id))}
+              variant='success'>
+              Add to favorite
+            </Button>
+            <Button
+              onClick={() => dispatch(RemoveContactFromFavoriteAC(id))}
+              variant='warning'>
+              Remove from favorite
+            </Button>
+          </Card.Body>
           <Button
             onClick={() => dispatch(removeContactActionCreator(id))}
             variant='danger'>
-            Remove
+            Delete contact
           </Button>
         </Card.Body>
       </Card>
