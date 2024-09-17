@@ -7,10 +7,7 @@ const initialState = {
   data: DATA_GROUP_CONTACT,
 };
 
-export function groupContactsReduser(
-  state = initialState,
-  action: ProjectActions
-) {
+export function groupsReduser(state = initialState, action: ProjectActions) {
   switch (action.type) {
     default:
       break;

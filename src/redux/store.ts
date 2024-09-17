@@ -1,12 +1,12 @@
 import { combineReducers, createStore } from 'redux';
 import { contactsReduser } from './contactsReducer';
 import { favoriteContactsReducer } from './favoriteContactsReducer';
-import { groupContactsReduser } from './groupContactsReducer';
+import { groupsReduser } from './groupsReducer';
 
 const rootReducer = combineReducers({
   contacts: contactsReduser,
   favoriteContacts: favoriteContactsReducer,
-  groups: groupContactsReduser,
+  groups: groupsReduser,
 });
 
 export const store = createStore(rootReducer);

@@ -7,7 +7,7 @@ import { useAppSelector } from 'src/redux/hooks';
 
 export const ContactListPage = memo(() => {
   const contactsState = useAppSelector(state => state.contacts.data);
-  const groupContactsState = useAppSelector(state => state.groups.data);
+  const groupsState = useAppSelector(state => state.groups.data);
 
   const [contacts, setContacts] = useState<ContactDto[]>(contactsState);
 
@@ -23,9 +23,7 @@ export const ContactListPage = memo(() => {
       }
 
       if (fv.groupId) {
-        const groupContacts = groupContactsState.find(
-          ({ id }) => id === fv.groupId
-        );
+        const groupContacts = groupsState.find(({ id }) => id === fv.groupId);
 
         if (groupContacts) {
           findContacts = findContacts.filter(({ id }) =>
@@ -43,7 +41,7 @@ export const ContactListPage = memo(() => {
     <Row xxl={1}>
       <Col className='mb-3'>
         <FilterForm
-          groupContactsList={groupContactsState}
+          groupsList={groupsState}
           initialValues={{}}
           onSubmit={onSubmit}
         />
