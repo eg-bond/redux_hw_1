@@ -1,8 +1,8 @@
-import { DATA_CONTACT } from 'src/__data__';
-import { ProjectActions, REMOVE_CONTACT, SET_CONTACTS } from './actions';
+import { ProjectActions, SET_CONTACTS } from './actions';
+import { ContactDto } from 'src/types/dto/ContactDto';
 
 const initialState = {
-  data: DATA_CONTACT,
+  data: [] as ContactDto[],
 };
 
 export function contactsReduser(state = initialState, action: ProjectActions) {

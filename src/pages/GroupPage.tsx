@@ -1,7 +1,6 @@
 import { memo } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-
 import { Empty } from 'src/components/Empty';
 import { ContactCard } from 'src/components/ContactCard';
 import { useAppSelector } from 'src/redux/hooks';

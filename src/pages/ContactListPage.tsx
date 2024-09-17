@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { ContactCard } from 'src/components/ContactCard';
 import { FilterForm, FilterFormValues } from 'src/components/FilterForm';
@@ -10,6 +10,8 @@ export const ContactListPage = memo(() => {
   const groupsState = useAppSelector(state => state.groups.data);
 
   const [contacts, setContacts] = useState<ContactDto[]>(contactsState);
+
+  useEffect(() => setContacts(contactsState), [contactsState]);
 
   const onSubmit = useCallback(
     (fv: Partial<FilterFormValues>) => {
@@ -34,7 +36,7 @@ export const ContactListPage = memo(() => {
 
       setContacts(findContacts);
     },
-    [contactsState]
+    [contactsState, groupsState]
   );
 
   return (
