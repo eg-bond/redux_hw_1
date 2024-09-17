@@ -1,5 +1,5 @@
 import { DATA_GROUP_CONTACT } from 'src/__data__';
-import { ProjectActions, SET_GROUPS } from './actions';
+import { ProjectActions, REMOVE_GROUP, SET_GROUPS } from './actions';
 import { GroupDto } from 'src/types/dto/GroupDto';
 
 export {};
@@ -14,6 +14,14 @@ export function groupsReduser(state = initialState, action: ProjectActions) {
       return {
         data: action.payload.groups,
       };
+    case REMOVE_GROUP:
+      const filteredGroups = state.data.filter(
+        group => group.id !== action.payload.id
+      );
+      return {
+        data: filteredGroups,
+      };
+
     default:
       break;
   }

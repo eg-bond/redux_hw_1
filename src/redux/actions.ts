@@ -4,22 +4,17 @@ import { RootState } from './store';
 import { GroupDto } from 'src/types/dto/GroupDto';
 
 export const SET_CONTACTS = 'SET_CONTACTS';
-export const ADD_CONTACT = 'ADD_CONTACT';
 export const REMOVE_CONTACT = 'REMOVE_CONTACT';
 
 export const ADD_FAVORITE_CONTACT = 'ADD_FAVORITE_CONTACT';
 export const REMOVE_FAVORITE_CONTACT = 'REMOVE_FAVORITE_CONTACT';
 
 export const SET_GROUPS = 'SET_GROUPS';
+export const REMOVE_GROUP = 'REMOVE_GROUP';
 
 interface SetContactsAction {
   type: typeof SET_CONTACTS;
   payload: { contacts: ContactDto[] };
-}
-
-interface AddContactAction {
-  type: typeof ADD_CONTACT;
-  payload: { contact: ContactDto };
 }
 
 interface RemoveContactAction {
@@ -42,10 +37,20 @@ interface SetGroupsAction {
   payload: { groups: GroupDto[] };
 }
 
+interface RemoveGroupAction {
+  type: typeof REMOVE_GROUP;
+  payload: { id: string };
+}
+
 export const removeContactActionCreator = (
   id: string
 ): RemoveContactAction => ({
   type: REMOVE_CONTACT,
+  payload: { id },
+});
+
+export const removeGroupActionCreator = (id: string): RemoveGroupAction => ({
+  type: REMOVE_GROUP,
   payload: { id },
 });
 
@@ -83,8 +88,8 @@ export function fetchGroupsAction(): ThunkAction<
 
 export type ProjectActions =
   | SetContactsAction
-  | AddContactAction
   | RemoveContactAction
   | AddFavoriteContactAction
   | RemoveFavoriteContactAction
-  | SetGroupsAction;
+  | SetGroupsAction
+  | RemoveGroupAction;
