@@ -4,7 +4,7 @@ import { ProjectActions } from './actions';
 export {};
 
 const initialState = {
-  contacts: DATA_GROUP_CONTACT,
+  data: DATA_GROUP_CONTACT,
 };
 
 export function groupContactsReduser(

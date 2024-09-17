@@ -5,8 +5,8 @@ import { useAppSelector } from 'src/redux/hooks';
 
 export const FavoriteListPage = memo(() => {
   const favoriteContacts = useAppSelector(state => {
-    return state.contacts.contacts.filter(({ id }) =>
-      state.favorite.contacts.includes(id)
+    return state.contacts.data.filter(({ id }) =>
+      state.favoriteContacts.data.includes(id)
     );
   });
 
