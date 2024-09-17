@@ -7,20 +7,13 @@ import {
   ContactListPage,
   GroupPage,
   ContactPage,
-  FavoritListPage,
+  FavoriteListPage,
   GroupListPage,
 } from 'src/pages';
-import { FavoriteContactsDto } from 'src/types/dto/FavoriteContactsDto';
 import { GroupContactsDto } from 'src/types/dto/GroupContactsDto';
-import { DATA_CONTACT, DATA_GROUP_CONTACT } from 'src/__data__';
+import { DATA_GROUP_CONTACT } from 'src/__data__';
 
 export const MainApp = () => {
-  const favoriteContactsState = useState<FavoriteContactsDto>([
-    DATA_CONTACT[0].id,
-    DATA_CONTACT[1].id,
-    DATA_CONTACT[2].id,
-    DATA_CONTACT[3].id,
-  ]);
   const groupContactsState = useState<GroupContactsDto[]>(DATA_GROUP_CONTACT);
 
   return (
@@ -33,29 +26,20 @@ export const MainApp = () => {
             <Route
               index
               element={
-                <ContactListPage
-                  favoriteContactsState={favoriteContactsState}
-                  groupContactsState={groupContactsState}
-                />
+                <ContactListPage groupContactsState={groupContactsState} />
               }
             />
             <Route path='contact'>
               <Route
                 index
                 element={
-                  <ContactListPage
-                    favoriteContactsState={favoriteContactsState}
-                    groupContactsState={groupContactsState}
-                  />
+                  <ContactListPage groupContactsState={groupContactsState} />
                 }
               />
               <Route
                 path=':contactId'
                 element={
-                  <ContactPage
-                    favoriteContactsState={favoriteContactsState}
-                    groupContactsState={groupContactsState}
-                  />
+                  <ContactPage groupContactsState={groupContactsState} />
                 }
               />
             </Route>
@@ -63,29 +47,18 @@ export const MainApp = () => {
               <Route
                 index
                 element={
-                  <GroupListPage
-                    favoriteContactsState={favoriteContactsState}
-                    groupContactsState={groupContactsState}
-                  />
+                  <GroupListPage groupContactsState={groupContactsState} />
                 }
               />
               <Route
                 path=':groupId'
-                element={
-                  <GroupPage
-                    favoriteContactsState={favoriteContactsState}
-                    groupContactsState={groupContactsState}
-                  />
-                }
+                element={<GroupPage groupContactsState={groupContactsState} />}
               />
             </Route>
             <Route
               path='favorit'
               element={
-                <FavoritListPage
-                  favoriteContactsState={favoriteContactsState}
-                  groupContactsState={groupContactsState}
-                />
+                <FavoriteListPage groupContactsState={groupContactsState} />
               }
             />
           </Route>

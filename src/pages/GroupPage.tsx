@@ -10,7 +10,7 @@ import { ContactCard } from 'src/components/ContactCard';
 import { useAppSelector } from 'src/redux/hooks';
 
 export const GroupPage = memo<CommonPageProps>(({ groupContactsState }) => {
-  const contactsState = useAppSelector(state => state.contacts);
+  const contactsState = useAppSelector(state => state.contacts.contacts);
 
   const { groupId } = useParams<{ groupId: string }>();
   const [contacts, setContacts] = useState<ContactDto[]>([]);

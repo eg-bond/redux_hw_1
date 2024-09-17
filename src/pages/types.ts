@@ -4,6 +4,5 @@ import { FavoriteContactsDto } from 'src/types/dto/FavoriteContactsDto';
 import { GroupContactsDto } from 'src/types/dto/GroupContactsDto';
 
 export interface CommonPageProps {
-  favoriteContactsState: State<FavoriteContactsDto>;
   groupContactsState: State<GroupContactsDto[]>;
 }
