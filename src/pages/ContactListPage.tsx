@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { CommonPageProps } from './types';
 import { Col, Row } from 'react-bootstrap';
 import { ContactCard } from 'src/components/ContactCard';
@@ -11,30 +11,34 @@ export const ContactListPage = memo<CommonPageProps>(
     const contactsState = useAppSelector(state => state.contacts);
 
     const [contacts, setContacts] = useState<ContactDto[]>(contactsState);
-    const onSubmit = (fv: Partial<FilterFormValues>) => {
-      let findContacts: ContactDto[] = contactsState;
 
-      if (fv.name) {
-        const fvName = fv.name.toLowerCase();
-        findContacts = findContacts.filter(
-          ({ name }) => name.toLowerCase().indexOf(fvName) > -1
-        );
-      }
+    const onSubmit = useCallback(
+      (fv: Partial<FilterFormValues>) => {
+        let findContacts: ContactDto[] = contactsState;
 
-      if (fv.groupId) {
-        const groupContacts = groupContactsState[0].find(
-          ({ id }) => id === fv.groupId
-        );
-
-        if (groupContacts) {
-          findContacts = findContacts.filter(({ id }) =>
-            groupContacts.contactIds.includes(id)
+        if (fv.name) {
+          const fvName = fv.name.toLowerCase();
+          findContacts = findContacts.filter(
+            ({ name }) => name.toLowerCase().indexOf(fvName) > -1
           );
         }
-      }
 
-      setContacts(findContacts);
-    };
+        if (fv.groupId) {
+          const groupContacts = groupContactsState[0].find(
+            ({ id }) => id === fv.groupId
+          );
+
+          if (groupContacts) {
+            findContacts = findContacts.filter(({ id }) =>
+              groupContacts.contactIds.includes(id)
+            );
+          }
+        }
+
+        setContacts(findContacts);
+      },
+      [contactsState]
+    );
 
     return (
       <Row xxl={1}>
