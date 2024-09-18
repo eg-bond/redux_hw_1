@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { ContactDto } from 'src/types/dto/ContactDto';
 import { Button, Card, ListGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from 'src/redux/hooks';
+import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import {
   AddContactToFavoriteAC,
   removeContactActionCreator,
@@ -17,6 +17,8 @@ interface ContactCardProps {
 export const ContactCard = memo<ContactCardProps>(
   ({ contact: { photo, id, name, phone, birthday, address }, withLink }) => {
     const dispatch = useAppDispatch();
+    const isFavorite = useAppSelector(state => state.favorite.includes(id));
+
     return (
       <Card key={id}>
         <Card.Img variant='top' src={photo} />
@@ -36,16 +38,19 @@ export const ContactCard = memo<ContactCardProps>(
             </ListGroup>
           </Card.Body>
           <Card.Body>
-            <Button
-              onClick={() => dispatch(AddContactToFavoriteAC(id))}
-              variant='success'>
-              Add to favorite
-            </Button>
-            <Button
-              onClick={() => dispatch(RemoveContactFromFavoriteAC(id))}
-              variant='warning'>
-              Remove from favorite
-            </Button>
+            {isFavorite ? (
+              <Button
+                onClick={() => dispatch(RemoveContactFromFavoriteAC(id))}
+                variant='warning'>
+                Remove from favorite
+              </Button>
+            ) : (
+              <Button
+                onClick={() => dispatch(AddContactToFavoriteAC(id))}
+                variant='success'>
+                Add to favorite
+              </Button>
+            )}
           </Card.Body>
           <Button
             onClick={() => dispatch(removeContactActionCreator(id))}
