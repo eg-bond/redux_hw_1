@@ -1,9 +1,10 @@
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { ContactCard } from 'src/components/ContactCard';
-import { FilterForm, FilterFormValues } from 'src/components/FilterForm';
+import { FilterForm } from 'src/components/FilterForm';
 import { ContactDto } from 'src/types/dto/ContactDto';
 import { useAppSelector } from 'src/redux/hooks';
+import { useOnSubmit } from 'src/hooks/useOnSubmit';
 
 export const ContactListPage = memo(() => {
   const contactsState = useAppSelector(state => state.contacts);
@@ -13,31 +14,7 @@ export const ContactListPage = memo(() => {
 
   useEffect(() => setContacts(contactsState), [contactsState]);
 
-  const onSubmit = useCallback(
-    (fv: Partial<FilterFormValues>) => {
-      let findContacts: ContactDto[] = contactsState;
-
-      if (fv.name) {
-        const fvName = fv.name.toLowerCase();
-        findContacts = findContacts.filter(
-          ({ name }) => name.toLowerCase().indexOf(fvName) > -1
-        );
-      }
-
-      if (fv.groupId) {
-        const groupContacts = groupsState.find(({ id }) => id === fv.groupId);
-
-        if (groupContacts) {
-          findContacts = findContacts.filter(({ id }) =>
-            groupContacts.contactIds.includes(id)
-          );
-        }
-      }
-
-      setContacts(findContacts);
-    },
-    [contactsState, groupsState]
-  );
+  const onSubmit = useOnSubmit(setContacts);
 
   return (
     <Row xxl={1}>

@@ -14,9 +14,9 @@ import { fetchContactsAction, fetchGroupsAction } from 'src/redux/actions';
 import { useAppDispatch } from 'src/redux/hooks';
 
 export const MainApp = () => {
-  //initialization
   const dispatch = useAppDispatch();
 
+  //initialization
   useEffect(() => {
     dispatch(fetchContactsAction());
     dispatch(fetchGroupsAction());
