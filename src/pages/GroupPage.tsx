@@ -10,14 +10,12 @@ export const GroupPage = memo(() => {
   const { groupId } = useParams<{ groupId: string }>();
 
   const group = useAppSelector(state =>
-    state.groups.data.find(({ id }) => id === groupId)
+    state.groups.find(({ id }) => id === groupId)
   );
 
   const groupContacts = useAppSelector(state => {
     if (group) {
-      return state.contacts.data.filter(({ id }) =>
-        group.contactIds.includes(id)
-      );
+      return state.contacts.filter(({ id }) => group.contactIds.includes(id));
     }
     return [];
   });

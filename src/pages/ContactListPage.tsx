@@ -6,8 +6,8 @@ import { ContactDto } from 'src/types/dto/ContactDto';
 import { useAppSelector } from 'src/redux/hooks';
 
 export const ContactListPage = memo(() => {
-  const contactsState = useAppSelector(state => state.contacts.data);
-  const groupsState = useAppSelector(state => state.groups.data);
+  const contactsState = useAppSelector(state => state.contacts);
+  const groupsState = useAppSelector(state => state.groups);
 
   const [contacts, setContacts] = useState<ContactDto[]>(contactsState);
 

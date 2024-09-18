@@ -9,7 +9,7 @@ export const ContactPage: FC = () => {
   const { contactId } = useParams<{ contactId: string }>();
 
   const contact = useAppSelector(state =>
-    state.contacts.data.find(({ id }) => id === contactId)
+    state.contacts.find(({ id }) => id === contactId)
   );
 
   return (

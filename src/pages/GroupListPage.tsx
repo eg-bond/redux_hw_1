@@ -4,7 +4,7 @@ import { GroupCard } from 'src/components/GroupCard';
 import { useAppSelector } from 'src/redux/hooks';
 
 export const GroupListPage = memo(() => {
-  const groupsState = useAppSelector(state => state.groups.data);
+  const groupsState = useAppSelector(state => state.groups);
 
   return (
     <Row xxl={4}>
