@@ -8,4 +8,6 @@ export const {
   removeGroup,
   addContactToFavorite,
   removeContactFromFavorite,
+  addContactToGroup,
+  removeContactFromGroup,
 } = contactsSlice.actions;

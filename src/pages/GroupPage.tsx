@@ -35,7 +35,7 @@ export const GroupPage = memo(() => {
             <Row xxl={4} className='g-4'>
               {groupContacts.map(contact => (
                 <Col key={contact.id}>
-                  <ContactCard contact={contact} withLink />
+                  <ContactCard contact={contact} withLink groupId={group.id} />
                 </Col>
               ))}
             </Row>

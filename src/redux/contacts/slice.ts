@@ -35,6 +35,33 @@ export const contactsSlice = createSlice({
       );
       state.groups = filteredGroups;
     },
+    addContactToGroup(
+      state,
+      action: PayloadAction<{ contactId: string; groupId: string }>
+    ) {
+      const neededGroupIndex = state.groups.findIndex(
+        group => group.id === action.payload.groupId
+      );
+      const groupContacts = state.groups[neededGroupIndex].contactIds;
+      // if contact is already in group:
+      if (groupContacts.includes(action.payload.contactId)) return state;
+      // if not:
+      groupContacts.push(action.payload.contactId);
+    },
+    removeContactFromGroup(
+      state,
+      action: PayloadAction<{ contactId: string; groupId: string }>
+    ) {
+      const neededGroupIndex = state.groups.findIndex(
+        group => group.id === action.payload.groupId
+      );
+      const filteredGroupContacts = state.groups[
+        neededGroupIndex
+      ].contactIds.filter(id => id !== action.payload.contactId);
+
+      state.groups[neededGroupIndex].contactIds = filteredGroupContacts;
+    },
+
     addContactToFavorite(state, action: PayloadAction<{ id: string }>) {
       if (state.favorite.includes(action.payload.id)) return state;
       state.favorite.push(action.payload.id);
