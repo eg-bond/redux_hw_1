@@ -10,16 +10,16 @@ import {
   FavoriteListPage,
   GroupListPage,
 } from 'src/pages';
-import { fetchContactsAction, fetchGroupsAction } from 'src/redux/actions';
 import { useAppDispatch } from 'src/redux/hooks';
+import { fetchContacts, fetchGroups } from 'src/redux/contacts';
 
 export const MainApp = () => {
   const dispatch = useAppDispatch();
 
   //initialization
   useEffect(() => {
-    dispatch(fetchContactsAction());
-    dispatch(fetchGroupsAction());
+    dispatch(fetchContacts());
+    dispatch(fetchGroups());
   }, []);
 
   return (

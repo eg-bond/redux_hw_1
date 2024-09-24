@@ -4,10 +4,10 @@ import { Button, Card, ListGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import {
-  AddContactToFavoriteAC,
-  removeContactActionCreator,
-  RemoveContactFromFavoriteAC,
-} from 'src/redux/actions';
+  addContactToFavorite,
+  removeContact,
+  removeContactFromFavorite,
+} from 'src/redux/contacts';
 
 interface ContactCardProps {
   contact: ContactDto;
@@ -40,20 +40,20 @@ export const ContactCard = memo<ContactCardProps>(
           <Card.Body>
             {isFavorite ? (
               <Button
-                onClick={() => dispatch(RemoveContactFromFavoriteAC(id))}
+                onClick={() => dispatch(removeContactFromFavorite(id))}
                 variant='warning'>
                 Remove from favorite
               </Button>
             ) : (
               <Button
-                onClick={() => dispatch(AddContactToFavoriteAC(id))}
+                onClick={() => dispatch(addContactToFavorite({ id }))}
                 variant='success'>
                 Add to favorite
               </Button>
             )}
           </Card.Body>
           <Button
-            onClick={() => dispatch(removeContactActionCreator(id))}
+            onClick={() => dispatch(removeContact({ id }))}
             variant='danger'>
             Delete contact
           </Button>

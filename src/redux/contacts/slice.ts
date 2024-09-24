@@ -1,0 +1,66 @@
+import { GroupDto } from 'src/types/dto/GroupDto';
+import { ContactDto } from 'src/types/dto/ContactDto';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { fetchContacts, fetchGroups } from './thunks';
+
+const initialState = {
+  contacts: [] as ContactDto[],
+  favorite: [] as string[],
+  groups: [] as GroupDto[],
+};
+
+export const contactsSlice = createSlice({
+  name: 'contacts',
+  initialState,
+  reducers: {
+    removeContact(state, action: PayloadAction<{ id: string }>) {
+      const filteredContacts = state.contacts.filter(
+        contact => contact.id !== action.payload.id
+      );
+      const filteredGroupContacts = state.groups.map(group => {
+        if (group.contactIds.includes(action.payload.id)) {
+          group.contactIds = group.contactIds.filter(
+            id => id !== action.payload.id
+          );
+        }
+        return group;
+      });
+
+      state.contacts = filteredContacts;
+      state.groups = filteredGroupContacts;
+    },
+    removeGroup(state, action: PayloadAction<{ id: string }>) {
+      const filteredGroups = state.groups.filter(
+        group => group.id !== action.payload.id
+      );
+      state.groups = filteredGroups;
+    },
+    addContactToFavorite(state, action: PayloadAction<{ id: string }>) {
+      if (state.favorite.includes(action.payload.id)) return state;
+      state.favorite.push(action.payload.id);
+    },
+    removeContactFromFavorite(state, action: PayloadAction<string>) {
+      const filteredFavorites = state.favorite.filter(
+        id => id !== action.payload
+      );
+      state.favorite = filteredFavorites;
+    },
+  },
+  extraReducers(builder) {
+    builder.addMatcher(fetchContacts.fulfilled.match, (state, action) => {
+      state.contacts = action.payload.contacts;
+    });
+    builder.addMatcher(fetchContacts.rejected.match, (state, action) => {
+      console.log(action.error.message);
+      state.contacts = initialState.contacts;
+    });
+
+    builder.addMatcher(fetchGroups.fulfilled.match, (state, action) => {
+      state.groups = action.payload.groups;
+    });
+    builder.addMatcher(fetchGroups.rejected.match, (state, action) => {
+      console.log(action.error.message);
+      state.groups = initialState.groups;
+    });
+  },
+});
