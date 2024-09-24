@@ -14,7 +14,7 @@ export function AddContactToGroupModal({
   show,
   contactId,
 }: IAddContactModal) {
-  const groupsState = useAppSelector(state => state.groups);
+  const groupsState = useAppSelector(state => state.contactReducer.groups);
   const dispatch = useAppDispatch();
 
   const inputs = useRef({

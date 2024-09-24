@@ -1,7 +1,9 @@
+import { apiSlice } from './api';
 import { contactsSlice } from './slice';
-export * from './thunks';
 
 export const contactReducer = contactsSlice.reducer;
+
+export const { useGetContactsQuery, useGetGroupsQuery } = apiSlice;
 
 export const {
   addContact,

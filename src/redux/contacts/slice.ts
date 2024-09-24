@@ -1,8 +1,8 @@
 import { GroupDto } from 'src/types/dto/GroupDto';
 import { ContactDto } from 'src/types/dto/ContactDto';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchContacts, fetchGroups } from './thunks';
 import { generateUUID } from 'src/helpers/generateUUID';
+import { apiSlice } from './api';
 
 const initialState = {
   contacts: [] as ContactDto[],
@@ -107,20 +107,17 @@ export const contactsSlice = createSlice({
     },
   },
   extraReducers(builder) {
-    builder.addMatcher(fetchContacts.fulfilled.match, (state, action) => {
-      state.contacts = action.payload.contacts;
-    });
-    builder.addMatcher(fetchContacts.rejected.match, (state, action) => {
-      console.log(action.error.message);
-      state.contacts = initialState.contacts;
-    });
-
-    builder.addMatcher(fetchGroups.fulfilled.match, (state, action) => {
-      state.groups = action.payload.groups;
-    });
-    builder.addMatcher(fetchGroups.rejected.match, (state, action) => {
-      console.log(action.error.message);
-      state.groups = initialState.groups;
-    });
+    builder.addMatcher(
+      apiSlice.endpoints.getContacts.matchFulfilled,
+      (state, action) => {
+        state.contacts = action.payload;
+      }
+    );
+    builder.addMatcher(
+      apiSlice.endpoints.getGroups.matchFulfilled,
+      (state, action) => {
+        state.groups = action.payload;
+      }
+    );
   },
 });

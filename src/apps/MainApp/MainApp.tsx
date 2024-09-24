@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import './MainApp.scss';
 import { ThemeProvider } from 'react-bootstrap';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -10,17 +9,12 @@ import {
   FavoriteListPage,
   GroupListPage,
 } from 'src/pages';
-import { useAppDispatch } from 'src/redux/hooks';
-import { fetchContacts, fetchGroups } from 'src/redux/contacts';
+import { useGetContactsQuery, useGetGroupsQuery } from 'src/redux/contacts';
 
 export const MainApp = () => {
-  const dispatch = useAppDispatch();
-
-  //initialization
-  useEffect(() => {
-    dispatch(fetchContacts());
-    dispatch(fetchGroups());
-  }, []);
+  // fetching contacts and groups data on app started
+  useGetContactsQuery();
+  useGetGroupsQuery();
 
   return (
     <ThemeProvider

@@ -25,7 +25,9 @@ export const ContactCard = memo<ContactCardProps>(
     groupId,
   }) => {
     const dispatch = useAppDispatch();
-    const isFavorite = useAppSelector(state => state.favorite.includes(id));
+    const isFavorite = useAppSelector(state =>
+      state.contactReducer.favorite.includes(id)
+    );
 
     const { show, handleClose, handleShow } = useModal();
 

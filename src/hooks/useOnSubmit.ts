@@ -5,8 +5,8 @@ import { ContactDto } from 'src/types/dto/ContactDto';
 export const useOnSubmit = (
   setContacts: React.Dispatch<React.SetStateAction<ContactDto[]>>
 ) => {
-  const contactsState = useAppSelector(state => state.contacts);
-  const groupsState = useAppSelector(state => state.groups);
+  const contactsState = useAppSelector(state => state.contactReducer.contacts);
+  const groupsState = useAppSelector(state => state.contactReducer.groups);
 
   const onSubmit = (fv: Partial<FilterFormValues>) => {
     let findContacts: ContactDto[] = contactsState;
