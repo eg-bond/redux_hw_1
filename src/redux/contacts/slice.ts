@@ -2,6 +2,7 @@ import { GroupDto } from 'src/types/dto/GroupDto';
 import { ContactDto } from 'src/types/dto/ContactDto';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchContacts, fetchGroups } from './thunks';
+import { generateUUID } from 'src/helpers/generateUUID';
 
 const initialState = {
   contacts: [] as ContactDto[],
@@ -13,6 +14,25 @@ export const contactsSlice = createSlice({
   name: 'contacts',
   initialState,
   reducers: {
+    addContact(
+      state,
+      action: PayloadAction<{
+        name: string;
+        phone: string;
+        birthday: string;
+        address: string;
+      }>
+    ) {
+      const newContact = {
+        id: generateUUID(),
+        name: action.payload.name,
+        phone: action.payload.phone,
+        birthday: action.payload.birthday,
+        address: action.payload.address,
+        photo: '/images/id-164-200-300.jpg',
+      };
+      state.contacts.push(newContact);
+    },
     removeContact(state, action: PayloadAction<{ id: string }>) {
       const filteredContacts = state.contacts.filter(
         contact => contact.id !== action.payload.id
@@ -28,6 +48,19 @@ export const contactsSlice = createSlice({
 
       state.contacts = filteredContacts;
       state.groups = filteredGroupContacts;
+    },
+    addGroup(
+      state,
+      action: PayloadAction<{ name: string; description: string }>
+    ) {
+      const newGroup = {
+        id: generateUUID(),
+        name: action.payload.name,
+        description: action.payload.description,
+        photo: '/images/id-164-200-300.jpg',
+        contactIds: [],
+      };
+      state.groups.push(newGroup);
     },
     removeGroup(state, action: PayloadAction<{ id: string }>) {
       const filteredGroups = state.groups.filter(

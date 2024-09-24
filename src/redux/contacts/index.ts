@@ -4,7 +4,9 @@ export * from './thunks';
 export const contactReducer = contactsSlice.reducer;
 
 export const {
+  addContact,
   removeContact,
+  addGroup,
   removeGroup,
   addContactToFavorite,
   removeContactFromFavorite,
