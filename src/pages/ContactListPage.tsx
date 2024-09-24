@@ -15,12 +15,22 @@ export const ContactListPage = memo(() => {
   const contactsState = useAppSelector(state => state.contacts);
   const groupsState = useAppSelector(state => state.groups);
 
-  const [contacts, setContacts] = useState<ContactDto[]>(contactsState);
-  const onSubmit = useOnSubmit(setContacts);
+  const [filteredContacts, setFilteredContacts] =
+    useState<ContactDto[]>(contactsState);
 
-  useEffect(() => setContacts(contactsState), [contactsState]);
+  const onSubmit = useOnSubmit(setFilteredContacts);
 
   const { show, handleClose, handleShow } = useModal();
+
+  useEffect(() => setFilteredContacts(contactsState), [contactsState]);
+
+  if (isLoading) return <LoadingButton text='Loading...' />;
+
+  if (isError) {
+    return (
+      <Alert variant='danger'>Some error occurred while loading data</Alert>
+    );
+  }
 
   return (
     <>
@@ -39,17 +49,8 @@ export const ContactListPage = memo(() => {
           />
         </Col>
         <Col>
-          {isLoading && <LoadingButton text={'Loading...'} />}
-          {isError && (
-            <>
-              <Alert variant='danger'>
-                Some error occured while loading data
-              </Alert>
-              <LoadingButton text={'Loading...'} />
-            </>
-          )}
           <Row xxl={4} className='g-4'>
-            {contacts.map(contact => (
+            {filteredContacts.map(contact => (
               <Col key={contact.id}>
                 <ContactCard contact={contact} withLink />
               </Col>
