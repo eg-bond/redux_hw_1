@@ -1,10 +1,11 @@
-import { applyMiddleware, createStore } from 'redux';
 import { contactsReduser } from './contactsReducer';
-
-import { thunk } from 'redux-thunk';
+import { configureStore } from '@reduxjs/toolkit';
 
 const rootReducer = contactsReduser;
 
-export const store = createStore(rootReducer, applyMiddleware(thunk));
+export const store = configureStore({
+  reducer: rootReducer,
+  devTools: true,
+});
 
 export type RootState = ReturnType<typeof rootReducer>;
