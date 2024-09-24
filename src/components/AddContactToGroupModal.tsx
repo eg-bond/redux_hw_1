@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useRef } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
-import { addContactToGroup } from 'src/redux/contacts';
+import { addContactToGroup } from 'src/redux/groups';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 
 interface IAddContactModal {
@@ -14,11 +14,13 @@ export function AddContactToGroupModal({
   show,
   contactId,
 }: IAddContactModal) {
-  const groupsState = useAppSelector(state => state.contactReducer.groups);
+  const groupsState = useAppSelector(state => state.groups);
   const dispatch = useAppDispatch();
 
+  const FIRST_GROUP_ID = groupsState[0].id;
+
   const inputs = useRef({
-    groupId: '',
+    groupId: FIRST_GROUP_ID,
   });
 
   const handleChange = (

@@ -1,6 +1,6 @@
 import { Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { removeGroup } from 'src/redux/contacts';
+import { removeGroup } from 'src/redux/groups';
 import { useAppDispatch } from 'src/redux/hooks';
 import { GroupDto } from 'src/types/dto/GroupDto';
 

@@ -1,17 +1,8 @@
-import { apiSlice } from './api';
+import { apiSliceContacts } from './api';
 import { contactsSlice } from './slice';
 
-export const contactReducer = contactsSlice.reducer;
+export const contactsReducer = contactsSlice.reducer;
 
-export const { useGetContactsQuery, useGetGroupsQuery } = apiSlice;
+export const { useGetContactsQuery } = apiSliceContacts;
 
-export const {
-  addContact,
-  removeContact,
-  addGroup,
-  removeGroup,
-  addContactToFavorite,
-  removeContactFromFavorite,
-  addContactToGroup,
-  removeContactFromGroup,
-} = contactsSlice.actions;
+export const { addContact, removeContact } = contactsSlice.actions;

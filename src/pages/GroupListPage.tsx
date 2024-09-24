@@ -4,12 +4,12 @@ import { AddGroupModal } from 'src/components/AddGroupModal';
 import { GroupCard } from 'src/components/GroupCard';
 import { LoadingButton } from 'src/components/LoadingButton';
 import { useModal } from 'src/hooks/useModal';
-import { useGetGroupsQuery } from 'src/redux/contacts';
+import { useGetGroupsQuery } from 'src/redux/groups';
 import { useAppSelector } from 'src/redux/hooks';
 
 export const GroupListPage = memo(() => {
   const { isLoading, isError } = useGetGroupsQuery();
-  const groupsState = useAppSelector(state => state.contactReducer.groups);
+  const groupsState = useAppSelector(state => state.groups);
 
   const { show, handleClose, handleShow } = useModal();
 

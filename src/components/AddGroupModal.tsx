@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useRef } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
-import { addGroup } from 'src/redux/contacts';
+import { addGroup } from 'src/redux/groups';
 import { useAppDispatch } from 'src/redux/hooks';
 
 interface IAddContactModal {

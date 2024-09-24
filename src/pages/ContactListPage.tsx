@@ -12,8 +12,8 @@ import { LoadingButton } from 'src/components/LoadingButton';
 
 export const ContactListPage = memo(() => {
   const { isLoading, isError } = useGetContactsQuery();
-  const contactsState = useAppSelector(state => state.contactReducer.contacts);
-  const groupsState = useAppSelector(state => state.contactReducer.groups);
+  const contactsState = useAppSelector(state => state.contacts);
+  const groupsState = useAppSelector(state => state.groups);
 
   const [contacts, setContacts] = useState<ContactDto[]>(contactsState);
   const onSubmit = useOnSubmit(setContacts);
