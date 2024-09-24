@@ -5,19 +5,18 @@ import { apiSliceContacts } from './api';
 
 const initialState = [] as ContactDto[];
 
+type AddContactActionPayload = PayloadAction<{
+  name: string;
+  phone: string;
+  birthday: string;
+  address: string;
+}>;
+
 export const contactsSlice = createSlice({
   name: 'contacts',
   initialState,
   reducers: {
-    addContact(
-      state,
-      action: PayloadAction<{
-        name: string;
-        phone: string;
-        birthday: string;
-        address: string;
-      }>
-    ) {
+    addContact(state, action: AddContactActionPayload) {
       const newContact = {
         id: generateUUID(),
         name: action.payload.name,
@@ -27,20 +26,15 @@ export const contactsSlice = createSlice({
         photo: '/images/id-164-200-300.jpg',
       };
       state.push(newContact);
-      return state;
     },
     removeContact(state, action: PayloadAction<{ id: string }>) {
-      const filteredContacts = state.filter(
-        contact => contact.id !== action.payload.id
-      );
-
-      return filteredContacts;
+      return state.filter(contact => contact.id !== action.payload.id);
     },
   },
   extraReducers(builder) {
     builder.addMatcher(
       apiSliceContacts.endpoints.getContacts.matchFulfilled,
-      (state, action) => (state = action.payload)
+      (_, action) => (_ = action.payload)
     );
   },
 });

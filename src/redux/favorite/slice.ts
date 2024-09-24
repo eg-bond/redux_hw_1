@@ -7,13 +7,12 @@ export const favoriteSlice = createSlice({
   initialState,
   reducers: {
     addContactToFavorite(state, action: PayloadAction<{ id: string }>) {
-      if (state.includes(action.payload.id)) return state;
-      state.push(action.payload.id);
-      return state;
+      if (!state.includes(action.payload.id)) {
+        state.push(action.payload.id);
+      }
     },
     removeContactFromFavorite(state, action: PayloadAction<{ id: string }>) {
-      const filteredFavorites = state.filter(id => id !== action.payload.id);
-      return filteredFavorites;
+      return state.filter(id => id !== action.payload.id);
     },
   },
 });
