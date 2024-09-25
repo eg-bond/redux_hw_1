@@ -1,11 +1,10 @@
-import { memo } from 'react';
+import { observer } from 'mobx-react-lite';
 import { Col, Row } from 'react-bootstrap';
 import { ContactCard } from 'src/components/ContactCard';
-import { useAppSelector } from 'src/redux/hooks';
-import { selectFavoriteContacts } from 'src/redux/selectors';
+import { favoriteStore } from 'src/mobx/favoriteStore';
 
-export const FavoriteListPage = memo(() => {
-  const favoriteContacts = useAppSelector(selectFavoriteContacts);
+export const FavoriteListPage = observer(() => {
+  const favoriteContacts = favoriteStore.favoriteContacts;
 
   return (
     <Row xxl={4} className='g-4'>

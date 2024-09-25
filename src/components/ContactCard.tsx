@@ -1,19 +1,12 @@
-import { memo } from 'react';
 import { ContactDto } from 'src/types/dto/ContactDto';
 import { Button, Card, ListGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
-import { removeContact } from 'src/redux/contacts';
 import { useModal } from 'src/hooks/useModal';
 import { AddContactToGroupModal } from './AddContactToGroupModal';
-import {
-  addContactToFavorite,
-  removeContactFromFavorite,
-} from 'src/redux/favorite';
-import {
-  removeContactFromAllGroups,
-  removeContactFromGroup,
-} from 'src/redux/groups';
+import { observer } from 'mobx-react-lite';
+import { favoriteStore } from 'src/mobx/favoriteStore';
+import { contactsStore } from 'src/mobx/contactsStore';
+import { groupsStore } from 'src/mobx/groupsStore';
 
 interface ContactCardProps {
   contact: ContactDto;
@@ -21,21 +14,20 @@ interface ContactCardProps {
   groupId?: string;
 }
 
-export const ContactCard = memo<ContactCardProps>(
+export const ContactCard = observer<ContactCardProps>(
   ({
     contact: { photo, id, name, phone, birthday, address },
     withLink,
     groupId,
   }) => {
-    const dispatch = useAppDispatch();
-    const isFavorite = useAppSelector(state => state.favorite.includes(id));
+    const isFavorite = favoriteStore.favorite.includes(id);
 
     const { show, handleClose, handleShow } = useModal();
 
     const deleteContact = (id: string) => {
-      dispatch(removeContact({ id }));
-      dispatch(removeContactFromAllGroups({ id }));
-      dispatch(removeContactFromFavorite({ id }));
+      contactsStore.removeContact(id);
+      groupsStore.removeContactFromAllGroups(id);
+      favoriteStore.removeContactFromFavorite(id);
     };
 
     return (
@@ -51,6 +43,7 @@ export const ContactCard = memo<ContactCardProps>(
             <Card.Title>
               {withLink ? <Link to={`/contact/${id}`}>{name}</Link> : name}
             </Card.Title>
+
             <Card.Body>
               <ListGroup>
                 <ListGroup.Item>
@@ -65,13 +58,13 @@ export const ContactCard = memo<ContactCardProps>(
             <Card.Body>
               {isFavorite ? (
                 <Button
-                  onClick={() => dispatch(removeContactFromFavorite({ id }))}
+                  onClick={() => favoriteStore.removeContactFromFavorite(id)}
                   variant='warning'>
                   Remove from favorite
                 </Button>
               ) : (
                 <Button
-                  onClick={() => dispatch(addContactToFavorite({ id }))}
+                  onClick={() => favoriteStore.addContactToFavorite(id)}
                   variant='success'>
                   Add to favorite
                 </Button>
@@ -81,7 +74,7 @@ export const ContactCard = memo<ContactCardProps>(
                 <Button
                   style={{ marginTop: '1rem' }}
                   onClick={() =>
-                    dispatch(removeContactFromGroup({ contactId: id, groupId }))
+                    groupsStore.removeContactFromGroup(id, groupId)
                   }
                   variant='dark'>
                   Remove from current group

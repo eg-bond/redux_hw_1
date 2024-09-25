@@ -1,7 +1,10 @@
+import { useEffect } from 'react';
 import './MainApp.scss';
 import { ThemeProvider } from 'react-bootstrap';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Layout } from 'src/components/Layout';
+import { contactsStore } from 'src/mobx/contactsStore';
+import { groupsStore } from 'src/mobx/groupsStore';
 import {
   ContactListPage,
   GroupPage,
@@ -9,13 +12,13 @@ import {
   FavoriteListPage,
   GroupListPage,
 } from 'src/pages';
-import { useGetContactsQuery } from 'src/redux/contacts';
-import { useGetGroupsQuery } from 'src/redux/groups';
 
 export const MainApp = () => {
-  // fetching contacts and groups data on app started
-  useGetContactsQuery();
-  useGetGroupsQuery();
+  // Initialization
+  useEffect(() => {
+    contactsStore.fetchContacts();
+    groupsStore.fetchGroups();
+  }, []);
 
   return (
     <ThemeProvider

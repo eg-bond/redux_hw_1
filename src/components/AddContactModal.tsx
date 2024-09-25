@@ -1,7 +1,6 @@
 import { ChangeEvent, FormEvent, useRef } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
-import { addContact } from 'src/redux/contacts';
-import { useAppDispatch } from 'src/redux/hooks';
+import { contactsStore } from 'src/mobx/contactsStore';
 
 interface IAddContactModal {
   handleClose: () => void;
@@ -9,8 +8,6 @@ interface IAddContactModal {
 }
 
 export function AddContactModal({ handleClose, show }: IAddContactModal) {
-  const dispatch = useAppDispatch();
-
   const inputs = useRef({
     name: '',
     phone: '',
@@ -26,14 +23,12 @@ export function AddContactModal({ handleClose, show }: IAddContactModal) {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(
-      addContact({
-        name: inputs.current.name,
-        phone: inputs.current.phone,
-        birthday: inputs.current.birthday,
-        address: inputs.current.address,
-      })
-    );
+    contactsStore.addContact({
+      name: inputs.current.name,
+      phone: inputs.current.phone,
+      birthday: inputs.current.birthday,
+      address: inputs.current.address,
+    });
     handleClose();
   };
 
