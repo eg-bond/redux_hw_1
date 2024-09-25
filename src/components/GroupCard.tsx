@@ -1,6 +1,6 @@
 import { Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { groupsStore } from 'src/mobx/store';
+import { groupsStore } from 'src/mobx/groupsStore';
 import { GroupDto } from 'src/types/dto/GroupDto';
 
 interface GroupCardProps {

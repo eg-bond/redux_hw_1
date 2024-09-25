@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useRef } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
-import { contactsStore } from 'src/mobx/store';
+import { contactsStore } from 'src/mobx/contactsStore';
+
 interface IAddContactModal {
   handleClose: () => void;
   show: boolean;

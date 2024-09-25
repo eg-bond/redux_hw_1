@@ -4,7 +4,7 @@ import { AddGroupModal } from 'src/components/AddGroupModal';
 import { GroupCard } from 'src/components/GroupCard';
 import { LoadingButton } from 'src/components/LoadingButton';
 import { useModal } from 'src/hooks/useModal';
-import { groupsStore } from 'src/mobx/store';
+import { groupsStore } from 'src/mobx/groupsStore';
 
 export const GroupListPage = observer(() => {
   const groupsState = groupsStore.groups;

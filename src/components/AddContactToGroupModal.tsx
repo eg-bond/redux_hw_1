@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { ChangeEvent, FormEvent, useRef } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
-import { groupsStore } from 'src/mobx/store';
+import { groupsStore } from 'src/mobx/groupsStore';
 
 interface IAddContactToGroupModal {
   handleClose: () => void;

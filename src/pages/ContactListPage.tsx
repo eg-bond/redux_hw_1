@@ -6,9 +6,10 @@ import { ContactDto } from 'src/types/dto/ContactDto';
 import { useOnSubmit } from 'src/hooks/useOnSubmit';
 import { AddContactModal } from 'src/components/AddContactModal';
 import { useModal } from 'src/hooks/useModal';
-import { contactsStore, groupsStore } from 'src/mobx/store';
 import { observer } from 'mobx-react-lite';
 import { LoadingButton } from 'src/components/LoadingButton';
+import { contactsStore } from 'src/mobx/contactsStore';
+import { groupsStore } from 'src/mobx/groupsStore';
 
 export const ContactListPage = observer(() => {
   const contactsState = contactsStore.contacts;

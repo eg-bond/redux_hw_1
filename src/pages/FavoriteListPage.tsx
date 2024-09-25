@@ -1,7 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import { Col, Row } from 'react-bootstrap';
 import { ContactCard } from 'src/components/ContactCard';
-import { contactsStore, favoriteStore } from 'src/mobx/store';
+import { contactsStore } from 'src/mobx/contactsStore';
+import { favoriteStore } from 'src/mobx/favoriteStore';
 
 export const FavoriteListPage = observer(() => {
   const favoriteContacts = contactsStore.contacts.filter(({ id }) =>

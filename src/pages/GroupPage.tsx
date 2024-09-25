@@ -3,8 +3,9 @@ import { useParams } from 'react-router-dom';
 import { Empty } from 'src/components/Empty';
 import { ContactCard } from 'src/components/ContactCard';
 import { GroupCard } from 'src/components/GroupCard';
-import { contactsStore, groupsStore } from 'src/mobx/store';
 import { observer } from 'mobx-react-lite';
+import { groupsStore } from 'src/mobx/groupsStore';
+import { contactsStore } from 'src/mobx/contactsStore';
 
 export const GroupPage = observer(() => {
   const { groupId } = useParams<{ groupId: string }>();

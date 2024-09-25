@@ -3,7 +3,8 @@ import './MainApp.scss';
 import { ThemeProvider } from 'react-bootstrap';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Layout } from 'src/components/Layout';
-import { contactsStore, groupsStore } from 'src/mobx/store';
+import { contactsStore } from 'src/mobx/contactsStore';
+import { groupsStore } from 'src/mobx/groupsStore';
 import {
   ContactListPage,
   GroupPage,

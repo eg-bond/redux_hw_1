@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import { useModal } from 'src/hooks/useModal';
 import { AddContactToGroupModal } from './AddContactToGroupModal';
 import { observer } from 'mobx-react-lite';
-import { contactsStore, favoriteStore, groupsStore } from 'src/mobx/store';
+import { favoriteStore } from 'src/mobx/favoriteStore';
+import { contactsStore } from 'src/mobx/contactsStore';
+import { groupsStore } from 'src/mobx/groupsStore';
 
 interface ContactCardProps {
   contact: ContactDto;

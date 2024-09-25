@@ -1,5 +1,6 @@
 import { FilterFormValues } from 'src/components/FilterForm';
-import { contactsStore, groupsStore } from 'src/mobx/store';
+import { contactsStore } from 'src/mobx/contactsStore';
+import { groupsStore } from 'src/mobx/groupsStore';
 import { ContactDto } from 'src/types/dto/ContactDto';
 
 export const useOnSubmit = (
