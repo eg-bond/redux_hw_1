@@ -29,7 +29,9 @@ export const contactsStore = makeAutoObservable({
   },
 
   removeContact(id: string) {
-    contactsStore.contacts.filter(contact => contact.id !== id);
+    contactsStore.contacts = contactsStore.contacts.filter(
+      contact => contact.id !== id
+    );
   },
 });
 
@@ -47,8 +49,8 @@ export const groupsStore = makeAutoObservable({
     groupsStore.groups.push(newGroup);
   },
 
-  removeContact(id: string) {
-    groupsStore.groups.filter(group => group.id !== id);
+  removeGroup(id: string) {
+    groupsStore.groups = groupsStore.groups.filter(group => group.id !== id);
   },
 
   addContactToGroup(contactId: string, groupId: string) {
@@ -73,8 +75,15 @@ export const groupsStore = makeAutoObservable({
   },
 });
 
+// function isFavorite(id: string) {
+//   favoriteStore.favorite.includes(id);
+// }
+
 export const favoriteStore = makeAutoObservable({
   favorite: [] as string[],
+  // get isFavorite() {
+  //   return this.favorite.length > 0;
+  // },
   addContactToFavorite: (id: string) => {
     if (!favoriteStore.favorite.includes(id)) {
       favoriteStore.favorite.push(id);
@@ -86,3 +95,6 @@ export const favoriteStore = makeAutoObservable({
     );
   },
 });
+
+//@ts-ignore
+window.group = groupsStore;

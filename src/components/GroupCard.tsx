@@ -1,7 +1,6 @@
 import { Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { removeGroup } from 'src/redux/groups';
-import { useAppDispatch } from 'src/redux/hooks';
+import { groupsStore } from 'src/mobx/store';
 import { GroupDto } from 'src/types/dto/GroupDto';
 
 interface GroupCardProps {
@@ -13,8 +12,6 @@ export const GroupCard = ({
   group: { id, name, description, photo, contactIds },
   withLink,
 }: GroupCardProps) => {
-  const dispatch = useAppDispatch();
-
   return (
     <Card key={id}>
       <Card.Header>
@@ -23,7 +20,7 @@ export const GroupCard = ({
       <Card.Body>{description}</Card.Body>
       <Card.Img variant='top' src={photo} />
       <Card.Body>
-        <Button onClick={() => dispatch(removeGroup({ id }))} variant='danger'>
+        <Button onClick={() => groupsStore.removeGroup(id)} variant='danger'>
           Remove
         </Button>
       </Card.Body>

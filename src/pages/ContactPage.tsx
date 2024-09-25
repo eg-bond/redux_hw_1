@@ -1,15 +1,13 @@
-import { FC } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { ContactCard } from 'src/components/ContactCard';
 import { Empty } from 'src/components/Empty';
-import { useAppSelector } from 'src/redux/hooks';
-import { selectContact } from 'src/redux/selectors';
+import { contactsStore } from 'src/mobx/store';
 
-export const ContactPage: FC = () => {
+export const ContactPage = () => {
   const { contactId } = useParams<{ contactId: string }>();
 
-  const contact = useAppSelector(state => selectContact(state, contactId));
+  const contact = contactsStore.contacts.find(({ id }) => id === contactId);
 
   return (
     <Row xxl={3}>

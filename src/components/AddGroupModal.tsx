@@ -1,7 +1,6 @@
 import { ChangeEvent, FormEvent, useRef } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
-import { addGroup } from 'src/redux/groups';
-import { useAppDispatch } from 'src/redux/hooks';
+import { groupsStore } from 'src/mobx/store';
 
 interface IAddContactModal {
   handleClose: () => void;
@@ -9,11 +8,9 @@ interface IAddContactModal {
 }
 
 export function AddGroupModal({ handleClose, show }: IAddContactModal) {
-  const dispatch = useAppDispatch();
-
   const inputs = useRef({
-    name: '-',
-    description: '-',
+    name: '',
+    description: '',
   });
 
   const handleChange = (
@@ -24,12 +21,10 @@ export function AddGroupModal({ handleClose, show }: IAddContactModal) {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(
-      addGroup({
-        name: inputs.current.name,
-        description: inputs.current.description,
-      })
-    );
+    groupsStore.addGroup({
+      name: inputs.current.name,
+      description: inputs.current.description,
+    });
     handleClose();
   };
 

@@ -1,26 +1,22 @@
-import { memo } from 'react';
+import { observer } from 'mobx-react-lite';
 import { Alert, Button, Col, Row } from 'react-bootstrap';
 import { AddGroupModal } from 'src/components/AddGroupModal';
 import { GroupCard } from 'src/components/GroupCard';
-import { LoadingButton } from 'src/components/LoadingButton';
 import { useModal } from 'src/hooks/useModal';
-import { useGetGroupsQuery } from 'src/redux/groups';
-import { useAppSelector } from 'src/redux/hooks';
-import { selectGroups } from 'src/redux/selectors';
+import { groupsStore } from 'src/mobx/store';
 
-export const GroupListPage = memo(() => {
-  const { isLoading, isError } = useGetGroupsQuery();
-  const groupsState = useAppSelector(selectGroups);
+export const GroupListPage = observer(() => {
+  const groupsState = groupsStore.groups;
 
   const { show, handleClose, handleShow } = useModal();
 
-  if (isLoading) return <LoadingButton text='Loading...' />;
+  // if (isLoading) return <LoadingButton text='Loading...' />;
 
-  if (isError) {
-    return (
-      <Alert variant='danger'>Some error occurred while loading data</Alert>
-    );
-  }
+  // if (isError) {
+  //   return (
+  //     <Alert variant='danger'>Some error occurred while loading data</Alert>
+  //   );
+  // }
 
   return (
     <>

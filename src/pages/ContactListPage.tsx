@@ -1,20 +1,17 @@
-import { memo, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Alert, Button, Col, Row } from 'react-bootstrap';
 import { ContactCard } from 'src/components/ContactCard';
 import { FilterForm } from 'src/components/FilterForm';
 import { ContactDto } from 'src/types/dto/ContactDto';
-import { useAppSelector } from 'src/redux/hooks';
 import { useOnSubmit } from 'src/hooks/useOnSubmit';
 import { AddContactModal } from 'src/components/AddContactModal';
 import { useModal } from 'src/hooks/useModal';
-import { useGetContactsQuery } from 'src/redux/contacts';
-import { LoadingButton } from 'src/components/LoadingButton';
-import { selectContacts, selectGroups } from 'src/redux/selectors';
+import { contactsStore, groupsStore } from 'src/mobx/store';
+import { observer } from 'mobx-react-lite';
 
-export const ContactListPage = memo(() => {
-  const { isLoading, isError } = useGetContactsQuery();
-  const contactsState = useAppSelector(selectContacts);
-  const groupsState = useAppSelector(selectGroups);
+export const ContactListPage = observer(() => {
+  const contactsState = contactsStore.contacts;
+  const groupsState = groupsStore.groups;
 
   const [filteredContacts, setFilteredContacts] =
     useState<ContactDto[]>(contactsState);
@@ -25,13 +22,13 @@ export const ContactListPage = memo(() => {
 
   useEffect(() => setFilteredContacts(contactsState), [contactsState]);
 
-  if (isLoading) return <LoadingButton text='Loading...' />;
+  // if (isLoading) return <LoadingButton text='Loading...' />;
 
-  if (isError) {
-    return (
-      <Alert variant='danger'>Some error occurred while loading data</Alert>
-    );
-  }
+  // if (isError) {
+  //   return (
+  //     <Alert variant='danger'>Some error occurred while loading data</Alert>
+  //   );
+  // }
 
   return (
     <>

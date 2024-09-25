@@ -9,13 +9,11 @@ import {
   FavoriteListPage,
   GroupListPage,
 } from 'src/pages';
-import { useGetContactsQuery } from 'src/redux/contacts';
-import { useGetGroupsQuery } from 'src/redux/groups';
 
 export const MainApp = () => {
   // fetching contacts and groups data on app started
-  useGetContactsQuery();
-  useGetGroupsQuery();
+  // useGetContactsQuery();
+  // useGetGroupsQuery();
 
   return (
     <ThemeProvider

@@ -1,12 +1,12 @@
 import { FilterFormValues } from 'src/components/FilterForm';
-import { useAppSelector } from 'src/redux/hooks';
+import { contactsStore, groupsStore } from 'src/mobx/store';
 import { ContactDto } from 'src/types/dto/ContactDto';
 
 export const useOnSubmit = (
   setContacts: React.Dispatch<React.SetStateAction<ContactDto[]>>
 ) => {
-  const contactsState = useAppSelector(state => state.contacts);
-  const groupsState = useAppSelector(state => state.groups);
+  const contactsState = contactsStore.contacts;
+  const groupsState = groupsStore.groups;
 
   const onSubmit = (fv: Partial<FilterFormValues>) => {
     let findContacts: ContactDto[] = contactsState;
