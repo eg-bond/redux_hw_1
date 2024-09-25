@@ -1,39 +1,65 @@
 import { memo, useEffect, useState } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Alert, Button, Col, Row } from 'react-bootstrap';
 import { ContactCard } from 'src/components/ContactCard';
 import { FilterForm } from 'src/components/FilterForm';
 import { ContactDto } from 'src/types/dto/ContactDto';
 import { useAppSelector } from 'src/redux/hooks';
 import { useOnSubmit } from 'src/hooks/useOnSubmit';
+import { AddContactModal } from 'src/components/AddContactModal';
+import { useModal } from 'src/hooks/useModal';
+import { useGetContactsQuery } from 'src/redux/contacts';
+import { LoadingButton } from 'src/components/LoadingButton';
+import { selectContacts, selectGroups } from 'src/redux/selectors';
 
 export const ContactListPage = memo(() => {
-  const contactsState = useAppSelector(state => state.contacts);
-  const groupsState = useAppSelector(state => state.groups);
+  const { isLoading, isError } = useGetContactsQuery();
+  const contactsState = useAppSelector(selectContacts);
+  const groupsState = useAppSelector(selectGroups);
 
-  const [contacts, setContacts] = useState<ContactDto[]>(contactsState);
+  const [filteredContacts, setFilteredContacts] =
+    useState<ContactDto[]>(contactsState);
 
-  useEffect(() => setContacts(contactsState), [contactsState]);
+  const onSubmit = useOnSubmit(setFilteredContacts);
 
-  const onSubmit = useOnSubmit(setContacts);
+  const { show, handleClose, handleShow } = useModal();
+
+  useEffect(() => setFilteredContacts(contactsState), [contactsState]);
+
+  if (isLoading) return <LoadingButton text='Loading...' />;
+
+  if (isError) {
+    return (
+      <Alert variant='danger'>Some error occurred while loading data</Alert>
+    );
+  }
 
   return (
-    <Row xxl={1}>
-      <Col className='mb-3'>
-        <FilterForm
-          groupsList={groupsState}
-          initialValues={{}}
-          onSubmit={onSubmit}
-        />
-      </Col>
-      <Col>
-        <Row xxl={4} className='g-4'>
-          {contacts.map(contact => (
-            <Col key={contact.id}>
-              <ContactCard contact={contact} withLink />
-            </Col>
-          ))}
-        </Row>
-      </Col>
-    </Row>
+    <>
+      <Button
+        style={{ marginBottom: '1rem' }}
+        onClick={handleShow}
+        variant='success'>
+        Add new contact
+      </Button>
+      <Row xxl={1}>
+        <Col className='mb-3'>
+          <FilterForm
+            groupsList={groupsState}
+            initialValues={{}}
+            onSubmit={onSubmit}
+          />
+        </Col>
+        <Col>
+          <Row xxl={4} className='g-4'>
+            {filteredContacts.map(contact => (
+              <Col key={contact.id}>
+                <ContactCard contact={contact} withLink />
+              </Col>
+            ))}
+          </Row>
+        </Col>
+      </Row>
+      <AddContactModal handleClose={handleClose} show={show} />
+    </>
   );
 });

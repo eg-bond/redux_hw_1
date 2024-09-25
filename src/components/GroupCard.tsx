@@ -1,6 +1,6 @@
 import { Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { removeGroupActionCreator } from 'src/redux/actions';
+import { removeGroup } from 'src/redux/groups';
 import { useAppDispatch } from 'src/redux/hooks';
 import { GroupDto } from 'src/types/dto/GroupDto';
 
@@ -23,9 +23,7 @@ export const GroupCard = ({
       <Card.Body>{description}</Card.Body>
       <Card.Img variant='top' src={photo} />
       <Card.Body>
-        <Button
-          onClick={() => dispatch(removeGroupActionCreator(id))}
-          variant='danger'>
+        <Button onClick={() => dispatch(removeGroup({ id }))} variant='danger'>
           Remove
         </Button>
       </Card.Body>
