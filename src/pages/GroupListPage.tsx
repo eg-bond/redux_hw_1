@@ -6,12 +6,21 @@ import { LoadingButton } from 'src/components/LoadingButton';
 import { useModal } from 'src/hooks/useModal';
 import { useGetGroupsQuery } from 'src/redux/groups';
 import { useAppSelector } from 'src/redux/hooks';
+import { selectGroups } from 'src/redux/selectors';
 
 export const GroupListPage = memo(() => {
   const { isLoading, isError } = useGetGroupsQuery();
-  const groupsState = useAppSelector(state => state.groups);
+  const groupsState = useAppSelector(selectGroups);
 
   const { show, handleClose, handleShow } = useModal();
+
+  if (isLoading) return <LoadingButton text='Loading...' />;
+
+  if (isError) {
+    return (
+      <Alert variant='danger'>Some error occurred while loading data</Alert>
+    );
+  }
 
   return (
     <>
@@ -23,10 +32,6 @@ export const GroupListPage = memo(() => {
         Add new group
       </Button>
       <Col>
-        {isLoading && <LoadingButton text={'Loading...'} />}
-        {isError && (
-          <Alert variant='danger'>Some error occured while loading data</Alert>
-        )}
         <Row xxl={4}>
           {groupsState.map(group => (
             <Col key={group.id}>

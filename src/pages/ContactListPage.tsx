@@ -9,11 +9,12 @@ import { AddContactModal } from 'src/components/AddContactModal';
 import { useModal } from 'src/hooks/useModal';
 import { useGetContactsQuery } from 'src/redux/contacts';
 import { LoadingButton } from 'src/components/LoadingButton';
+import { selectContacts, selectGroups } from 'src/redux/selectors';
 
 export const ContactListPage = memo(() => {
   const { isLoading, isError } = useGetContactsQuery();
-  const contactsState = useAppSelector(state => state.contacts);
-  const groupsState = useAppSelector(state => state.groups);
+  const contactsState = useAppSelector(selectContacts);
+  const groupsState = useAppSelector(selectGroups);
 
   const [filteredContacts, setFilteredContacts] =
     useState<ContactDto[]>(contactsState);

@@ -2,11 +2,10 @@ import { memo } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { ContactCard } from 'src/components/ContactCard';
 import { useAppSelector } from 'src/redux/hooks';
+import { selectFavoriteContacts } from 'src/redux/selectors';
 
 export const FavoriteListPage = memo(() => {
-  const favoriteContacts = useAppSelector(state => {
-    return state.contacts.filter(({ id }) => state.favorite.includes(id));
-  });
+  const favoriteContacts = useAppSelector(selectFavoriteContacts);
 
   return (
     <Row xxl={4} className='g-4'>

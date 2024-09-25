@@ -5,20 +5,16 @@ import { Empty } from 'src/components/Empty';
 import { ContactCard } from 'src/components/ContactCard';
 import { useAppSelector } from 'src/redux/hooks';
 import { GroupCard } from 'src/components/GroupCard';
+import { selectGroup, selectGroupContacts } from 'src/redux/selectors';
 
 export const GroupPage = memo(() => {
   const { groupId } = useParams<{ groupId: string }>();
 
-  const group = useAppSelector(state =>
-    state.groups.find(({ id }) => id === groupId)
-  );
+  const group = useAppSelector(state => selectGroup(state, groupId));
 
-  const groupContacts = useAppSelector(state => {
-    if (group) {
-      return state.contacts.filter(({ id }) => group.contactIds.includes(id));
-    }
-    return [];
-  });
+  const groupContacts = useAppSelector(state =>
+    selectGroupContacts(state, groupId)
+  );
 
   return (
     <Row className='g-4'>
