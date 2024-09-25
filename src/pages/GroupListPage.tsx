@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { Alert, Button, Col, Row } from 'react-bootstrap';
 import { AddGroupModal } from 'src/components/AddGroupModal';
 import { GroupCard } from 'src/components/GroupCard';
+import { LoadingButton } from 'src/components/LoadingButton';
 import { useModal } from 'src/hooks/useModal';
 import { groupsStore } from 'src/mobx/store';
 
@@ -10,13 +11,13 @@ export const GroupListPage = observer(() => {
 
   const { show, handleClose, handleShow } = useModal();
 
-  // if (isLoading) return <LoadingButton text='Loading...' />;
+  if (groupsStore.isLoading) return <LoadingButton text='Loading...' />;
 
-  // if (isError) {
-  //   return (
-  //     <Alert variant='danger'>Some error occurred while loading data</Alert>
-  //   );
-  // }
+  if (groupsStore.isError) {
+    return (
+      <Alert variant='danger'>Some error occurred while loading data</Alert>
+    );
+  }
 
   return (
     <>

@@ -1,9 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import { ContactDto } from 'src/types/dto/ContactDto';
-import data_contacts from './data_contacts.json';
-import data_groups from './data_groups.json';
 import { generateUUID } from 'src/helpers/generateUUID';
-import { DEFAULT_IMAGE } from 'src/constants/general';
+import { CONTACTS_URL, DEFAULT_IMAGE, GROUPS_URL } from 'src/constants/general';
 import { GroupDto } from 'src/types/dto/GroupDto';
 
 interface AddContactData {
@@ -14,7 +12,24 @@ interface AddContactData {
 }
 
 export const contactsStore = makeAutoObservable({
-  contacts: data_contacts as ContactDto[],
+  contacts: [] as ContactDto[],
+  isLoading: false,
+  isError: false,
+
+  *fetchContacts() {
+    this.isLoading = true;
+    try {
+      const response: ContactDto[] = yield fetch(CONTACTS_URL).then(res =>
+        res.json()
+      );
+      this.contacts = response;
+    } catch (error) {
+      this.isError = true;
+      this.contacts = [];
+    } finally {
+      this.isLoading = false;
+    }
+  },
 
   addContact: (addContactData: AddContactData) => {
     const newContact = {
@@ -36,7 +51,24 @@ export const contactsStore = makeAutoObservable({
 });
 
 export const groupsStore = makeAutoObservable({
-  groups: data_groups as GroupDto[],
+  groups: [] as GroupDto[],
+  isLoading: false,
+  isError: false,
+
+  *fetchGroups() {
+    this.isLoading = true;
+    try {
+      const response: GroupDto[] = yield fetch(GROUPS_URL).then(res =>
+        res.json()
+      );
+      this.groups = response;
+    } catch (error) {
+      this.isError = true;
+      this.groups = [];
+    } finally {
+      this.isLoading = false;
+    }
+  },
 
   addGroup: ({ name, description }: { name: string; description: string }) => {
     const newGroup = {

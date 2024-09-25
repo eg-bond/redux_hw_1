@@ -8,6 +8,7 @@ import { AddContactModal } from 'src/components/AddContactModal';
 import { useModal } from 'src/hooks/useModal';
 import { contactsStore, groupsStore } from 'src/mobx/store';
 import { observer } from 'mobx-react-lite';
+import { LoadingButton } from 'src/components/LoadingButton';
 
 export const ContactListPage = observer(() => {
   const contactsState = contactsStore.contacts;
@@ -22,13 +23,13 @@ export const ContactListPage = observer(() => {
 
   useEffect(() => setFilteredContacts(contactsState), [contactsState]);
 
-  // if (isLoading) return <LoadingButton text='Loading...' />;
+  if (contactsStore.isLoading) return <LoadingButton text='Loading...' />;
 
-  // if (isError) {
-  //   return (
-  //     <Alert variant='danger'>Some error occurred while loading data</Alert>
-  //   );
-  // }
+  if (contactsStore.isError) {
+    return (
+      <Alert variant='danger'>Some error occurred while loading data</Alert>
+    );
+  }
 
   return (
     <>

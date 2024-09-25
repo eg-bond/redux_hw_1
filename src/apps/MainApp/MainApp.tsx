@@ -1,7 +1,9 @@
+import { useEffect } from 'react';
 import './MainApp.scss';
 import { ThemeProvider } from 'react-bootstrap';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Layout } from 'src/components/Layout';
+import { contactsStore, groupsStore } from 'src/mobx/store';
 import {
   ContactListPage,
   GroupPage,
@@ -11,9 +13,11 @@ import {
 } from 'src/pages';
 
 export const MainApp = () => {
-  // fetching contacts and groups data on app started
-  // useGetContactsQuery();
-  // useGetGroupsQuery();
+  // Initialization
+  useEffect(() => {
+    contactsStore.fetchContacts();
+    groupsStore.fetchGroups();
+  }, []);
 
   return (
     <ThemeProvider

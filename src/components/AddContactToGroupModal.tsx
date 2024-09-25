@@ -13,7 +13,7 @@ export const AddContactToGroupModal = observer<IAddContactToGroupModal>(
   ({ handleClose, show, contactId }) => {
     const groupsState = groupsStore.groups;
 
-    const FIRST_GROUP_ID = groupsState[0].id;
+    const FIRST_GROUP_ID = groupsState[0]?.id;
 
     const inputs = useRef({
       groupId: FIRST_GROUP_ID,
